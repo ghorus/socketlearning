@@ -2,8 +2,6 @@ from flask import Flask, render_template,request,session,redirect,url_for
 from flask_socketio import SocketIO,leave_room, join_room,send
 import random
 from string import ascii_uppercase
-import eventlet
-from eventlet import wsgi
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -89,6 +87,5 @@ def handle_msgs(data):
 # import eventlet.wsgi
 # eventlet.wsgi.server(eventlet.listen(('localhost', 5000)), app)
 if __name__ == '__main__':
-    wsgi.server(eventlet.listen(("127.0.0.1", 5000)), app)
     app.run(debug=True)
     socketio.run(app)
