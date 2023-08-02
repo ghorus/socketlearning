@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Chat room: {{room}}</h2>
+<div class="messages"></div>
+<input class="message">
+<button onclick="sendit()">Send</button>
+<script type="text/javascript" charset="utf-8">
+    var socket = io();
+    const messages = document.querySelector(".messages")
+    function createMsg(name,msg){
+        const content =`
+        <div>
+            <span>
+                <strong>${name}</strong>:${msg}
+            </span>
+            <span class="muted">
+                ${new Date().toLocaleString()}
+        </div>
+            `
+        messages.innerHTML +=content
+    }
+    socket.on("message",(data)=>{
+        createMsg(data.name,data.message)
+    })
+    function sendit(){
+        console.log("send")
+        const message = document.querySelector(".message")
+        if (message.value == ""){return}
+        socket.emit("message",{data:message.value})
+        message.value =""
+    }
+</script>
+
+{% for msg in messages %}
+    <script type="text/javascript">
+        createMsg("{{msg.name}}","{{msg.message}}")
+    </script>
+{% endfor %}
+{% endblock content %}

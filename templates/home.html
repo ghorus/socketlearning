@@ -1,0 +1,13 @@
+
+{% extends 'layout.html' %}
+{% block content %}
+    {% if error %}
+    {{error}}
+    {% endif %}
+    <form method="POST">
+        <label>name</label><input name="name" value="{{name}}">
+        <label>room code</label><input name="code" value ="{{code}}">
+        <button name="create">create</button>
+        <button name="join">join</button>
+    </form>
+{% endblock content %}
