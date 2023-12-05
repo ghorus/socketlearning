@@ -83,9 +83,7 @@ def handle_msgs(data):
     rooms[room]["messages"].append(content)
     print(f'{session.get("name")} said:{data["data"]}')
     return render_template("room.html",)
-# import eventlet
-# import eventlet.wsgi
-# eventlet.wsgi.server(eventlet.listen(('localhost', 5000)), app)
+
 if __name__ == '__main__':
     app.run(debug=True)
     socketio.run(app)
